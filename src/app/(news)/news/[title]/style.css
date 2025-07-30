@@ -1,0 +1,10 @@
+strong {
+    @apply text-white bg-[#382f92] p-[0.3rem] mb-4 leading-snug
+}
+.news-content h3,
+.news-content h2,
+.news-content h4 {
+    font-size: 1.5rem;
+    line-height: 1;
+    @apply bg-[#382f92] px-1 py-[0.3rem] text-white leading-snug w-fit
+}

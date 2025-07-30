@@ -1,0 +1,6 @@
+@media (min-width: 400px) {
+    .mobile-popup {
+        top: 80%;
+        font-size: 18px;
+    }
+}

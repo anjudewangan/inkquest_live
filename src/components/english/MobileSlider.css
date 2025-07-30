@@ -1,0 +1,4 @@
+.side-bar-transition {
+    transition: height 1000ms;
+    height: 100vh;
+}

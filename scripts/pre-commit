@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Stash un-staged changes
+stash_message="Pre-commit: Stash unstaged changes for build"
+git stash push --keep-index -u -m "$stash_message" >/dev/null 2>&1 || exit 0
+
+# Run npm build
+npm run build
+
+# Check if build exited successfully (exit code 0)
+if [ $? -eq 0 ]; then
+  # Re-apply stashed changes
+  git stash pop >/dev/null 2>&1
+else
+  # Build failed, restore stashed changes and exit
+  echo "Build failed! Stashed changes restored."
+  git stash pop >/dev/null 2>&1
+  exit 1
+fi
+

@@ -1,0 +1,15 @@
+.swiper-button-next,
+.swiper-button-prev {
+    color: #382f92;
+    z-index: 1000;
+}
+
+.swiper-pagination-bullet {
+    background-color: white;
+}
+
+/* .swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: white;
+    @apply py-6 px-7 rounded-3xl;
+} */

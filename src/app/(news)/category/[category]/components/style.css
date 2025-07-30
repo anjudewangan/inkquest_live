@@ -1,0 +1,17 @@
+.pagination {
+    @apply flex gap-2;
+}
+
+.page-item, .next-item, .prev-item {
+    @apply dark:bg-[#252525] bg-white px-2 py-1 border border-[#382f92] dark:border-none -skew-x-12 text-xl cursor-pointer;
+}
+.disabled{
+    @apply cursor-default hidden;
+}
+.active{
+    @apply bg-[#382f92] dark:text-black text-white
+    }
+    
+    .page-item:hover, .next-item:hover, .prev-item:hover {
+        @apply dark:bg-[#666666] bg-[#382f92] dark:text-black text-white
+}

@@ -1,0 +1,3 @@
+.tag-cloud-hover {
+    @apply border border-[#382f92] -skew-x-12 hover:text-[#382f92] hover:border-white hover:bg-white;
+}

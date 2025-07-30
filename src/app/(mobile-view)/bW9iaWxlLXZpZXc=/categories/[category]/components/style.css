@@ -1,0 +1,13 @@
+.pagination {
+    @apply flex justify-between;
+}
+
+.page-item, .next-item, .prev-item {
+    @apply dark:bg-[#252525] px-2 py-1 -skew-x-12 text-xl hover:bg-[#666666] cursor-pointer;
+}
+.disabled{
+    @apply cursor-default hidden;
+}
+.active{
+    @apply bg-[#382f92]
+}
