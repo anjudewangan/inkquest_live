@@ -6,7 +6,7 @@ import 'swiper/css';
 const AdsSlider = ({ images }) => {
   return (
     <div className="flex justify-center">
-      <div className="w-[600px] h-[300px]">
+      <div className="w-[400px] h-[300px]">
         <Swiper
           spaceBetween={10}
           slidesPerView={1}
