@@ -290,7 +290,7 @@ async function page({ params }) {
                 </div>
 
                 {/* <AdsSlider images={topAds} /> */}
-                <LoadNews ads={topAds} />
+                {/* <LoadNews ads={topAds} />
                 <div
                   className="flex news-content flex-col gap-y-2"
                   id="news-text"
@@ -301,7 +301,32 @@ async function page({ params }) {
                         `<iframe src="https://docs.google.com/viewer?url=${url}f&embedded=true" class="pdf-view" style="" loading="lazy"></iframe>`
                     ),
                   }}
-                ></div>
+                ></div> */}
+                {(() => {
+                  const descriptionHtml = news[0].Description.replaceAll(
+                    /PDF@(https:\/\/[^\s<]+)/gm,
+                    (match, url) =>
+                      `<iframe src="https://docs.google.com/viewer?url=${url}f&embedded=true" class="pdf-view" style="" loading="lazy"></iframe>`
+                  );
+
+                  const parts = descriptionHtml.split("</p>");
+
+                  return (
+                    <div className="flex news-content flex-col gap-y-2" id="news-text">
+                      {parts.map((part, index) => {
+                        if (!part.trim()) return null;
+
+                        return (
+                          <React.Fragment key={index}>
+                            <div dangerouslySetInnerHTML={{ __html: part + "</p>" }} />
+
+                            {index === 0 && <AdsSlider images={topAds} />}
+                          </React.Fragment>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
                 {news[0].x_id && <Twitter link={news[0].x_id} />}
                 <div className="lg:mt-4 mt-2 flex gap-3 flex-wrap">
                   {news[0].Tag.map((tag) =>
