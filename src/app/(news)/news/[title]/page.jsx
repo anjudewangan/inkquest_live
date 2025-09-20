@@ -302,7 +302,73 @@ async function page({ params }) {
                     ),
                   }}
                 ></div> */}
-                {(() => {
+
+                <div className="flex news-content flex-col gap-y-2" id="news-text">
+                  {(() => {
+                    const paragraphs = news[0].Description.split("</p>");
+                    let adInserted = false;
+
+                    return paragraphs.map((part, index) => {
+                      if (!part.trim()) return null;
+
+                      const pdfMatch = part.match(/PDF@(https:\/\/[^\s<]+)/);
+                      if (pdfMatch) {
+                        return (
+                          <React.Fragment key={index}>
+                            <iframe
+                              src={`https://docs.google.com/viewer?url=${pdfMatch[1]}&embedded=true`}
+                              className="pdf-view"
+                              style={{ width: "100%", height: "500px" }}
+                              loading="lazy"
+                            ></iframe>
+                          </React.Fragment>
+                        );
+                      }
+
+                      const videoMatch = part.match(/VIDEO@(https?:\/\/[^\s<]+)/);
+                      if (videoMatch) {
+                        return (
+                          <React.Fragment key={index}>
+                            <video controls style={{ width: "100%", maxHeight: "500px" }}>
+                              <source src={videoMatch[1]} type="video/mp4" />
+                              Your browser does not support the video tag.
+                            </video>
+                          </React.Fragment>
+                        );
+                      }
+
+                      const ytMatch = part.match(
+                        /(https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([^\s&<]+))|(https?:\/\/youtu\.be\/([^\s&<]+))/
+                      );
+                      if (ytMatch) {
+                        const videoId = ytMatch[2] || ytMatch[4];
+                        return (
+                          <React.Fragment key={index}>
+                            <iframe
+                              width="100%"
+                              height="500"
+                              src={`https://www.youtube.com/embed/${videoId}`}
+                              title="YouTube video"
+                              frameBorder="0"
+                              allowFullScreen
+                            ></iframe>
+                          </React.Fragment>
+                        );
+                      }
+
+                      return (
+                        <React.Fragment key={index}>
+                          <div dangerouslySetInnerHTML={{ __html: part + "</p>" }} />
+                          {!adInserted && <AdsSlider images={topAds} />}
+                          {(!adInserted && (adInserted = true))}
+                        </React.Fragment>
+                      );
+                    });
+                  })()}
+                </div>
+
+
+                {/* {(() => {
                   const descriptionHtml = news[0].Description.replaceAll(
                     /PDF@(https:\/\/[^\s<]+)/gm,
                     (match, url) =>
@@ -326,7 +392,7 @@ async function page({ params }) {
                       })}
                     </div>
                   );
-                })()}
+                })()} */}
                 {news[0].x_id && <Twitter link={news[0].x_id} />}
                 <div className="lg:mt-4 mt-2 flex gap-3 flex-wrap">
                   {news[0].Tag.map((tag) =>
